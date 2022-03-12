@@ -153,15 +153,15 @@ func (postgresDb *PostgresDatabase) GetCollegeById(ctx context.Context, collegeI
 
 }
 
-func (postgresDb *PostgresDatabase) GetMaxFees(ctx context.Context) (float32, error) {
+func (postgresDb *PostgresDatabase) GetMaxFeesAndCutoff(ctx context.Context) (float32, float32, error) {
 	postgresDb.mutex.Lock()
 	defer postgresDb.mutex.Unlock()
 
 	data := structure.CollegeData{}
-	err := postgresDb.Db.GetContext(ctx, &data, "select max(fees) from college_data;")
+	err := postgresDb.Db.GetContext(ctx, &data, "select max(fees) as fees, max(cutoff) as cutoff  from college_data;")
 	if err != nil {
-		return 0, err
+		return 0, 0, err
 	}
-	return data.Max, nil
+	return data.Fees, data.Cutoff, nil
 
 }

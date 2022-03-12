@@ -9,7 +9,7 @@ import "init.proto";
 import "details.proto";
 
 service CollegeLocatorService {
-  rpc InitApp(InitRequest) returns (stream InitResponse);
+  rpc InitApp(InitRequest) returns (InitResponse);
   rpc Search(SearchRequest) returns (stream SearchResponse);
   rpc Details(DetailsRequest) returns (DetailsResponse);
 }

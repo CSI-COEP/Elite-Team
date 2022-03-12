@@ -34,7 +34,6 @@ type CollegeData struct {
 	DocumentTokens string         `json:"document_tokens" db:"document_tokens"`
 
 	Distance float32 `json:"distance" db:"distance"`
-	Max      float32 `json:"max" db:"max"`
 }
 
 func (college *CollegeData) MarshalBinary() ([]byte, error) {

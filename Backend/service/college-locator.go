@@ -18,34 +18,12 @@ func NewDataServer() *DataServer {
 	}
 }
 
-func (dataServer *DataServer) InitApp(request *pb.InitRequest, stream pb.CollegeLocatorService_InitAppServer) error {
-	fees, err := dataServer.postgresDb.GetMaxFees(stream.Context())
-
+func (dataServer *DataServer) InitApp(ctx context.Context, request *pb.InitRequest) (*pb.InitResponse, error) {
+	fees, cutoff, err := dataServer.postgresDb.GetMaxFeesAndCutoff(ctx)
 	if err != nil {
-		return err
+		return nil, err
 	}
-
-	err = dataServer.postgresDb.SearchCollege(stream.Context(),
-		&pb.SearchRequest{
-			Location: &pb.Location{
-				Latitude:  request.GetLocation().GetLatitude(),
-				Longitude: request.GetLocation().GetLongitude(),
-			},
-			Distance: pb.Distance_NEARBY,
-		},
-		func(data *structure.CollegeData) error {
-			fmt.Println(data)
-			err := stream.Send(&pb.InitResponse{
-				Image:        data.Images[0],
-				Name:         data.Name,
-				Address:      data.Address,
-				CollegeId:    data.CollegeId,
-				MaxRangeFees: fees,
-			})
-			return err
-		},
-	)
-	return err
+	return &pb.InitResponse{MaxRangeFees: fees, MaxRangeCutoff: cutoff}, nil
 }
 
 func (dataServer *DataServer) Search(request *pb.SearchRequest, stream pb.CollegeLocatorService_SearchServer) error {
@@ -88,6 +66,6 @@ func (dataServer *DataServer) Details(ctx context.Context, request *pb.DetailsRe
 		InstituteType: data.InstituteType,
 		Details:       data.Details,
 		Courses:       data.Courses,
-		Deemed: data.Deemed,
+		Deemed:        data.Deemed,
 	}, err
 }

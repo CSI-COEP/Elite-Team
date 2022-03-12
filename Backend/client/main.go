@@ -8,7 +8,6 @@ import (
 	"github.com/joho/godotenv"
 	_ "github.com/joho/godotenv/autoload"
 	"google.golang.org/grpc"
-	"io"
 	"log"
 )
 
@@ -29,31 +28,11 @@ func main() {
 
 	server := pb.NewCollegeLocatorServiceClient(conn)
 	ctx := context.TODO()
-	initData, err := server.InitApp(ctx, &pb.InitRequest{
-		Location: &pb.Location{
-			Longitude: 21.246578216552734,
-			Latitude:  75.2966537475586,
-		},
-	})
+	initData, err := server.InitApp(ctx, &pb.InitRequest{})
 	if err != nil {
 		log.Fatal("Init Request Error :  ", err)
 	}
-
-	for {
-		res, err := initData.Recv()
-		if err == io.EOF {
-			break
-		}
-		if err != nil {
-			panic(err)
-		}
-		fmt.Println(res.String())
-		fmt.Println(res.GetCollegeId())
-		fmt.Println(res.GetName())
-		fmt.Println(res.GetAddress())
-		fmt.Println(res.GetImage())
-		fmt.Println(res.GetMaxRangeFees())
-	}
+	fmt.Println(initData)
 }
 
 // NP_LOCATION : 	18.50378107199465, 73.80971162151037
@@ -67,8 +46,7 @@ func main() {
 //		CollegeId:      "1",
 //		Name:           "College Of Engineering Pune",
 //		Address:        "College of Engg. Pune,Wellesely Rd,Shivajinagar,Pune-411 005.Maharashtra, INDIA.",
-//		Images:         []string{"https://orchidfoundation.info/sites/default/files/2021-03/College%20of%20Engineering.jpeg",
-//								"https://www.coep.org.in/sites/default/files/slideshow%20images/coepfinal1.jpg"},
+//		Images:         []string{"https://orchidfoundation.info/sites/default/files/2021-03/College%20of%20Engineering.jpeg","http://www.coep.org.in/sites/default/files/COEP%20New%20Logo_0.jpg","https://www.coep.org.in/sites/default/files/slideshow%20images/coepfinal1.jpg"},
 //		Email:          "coep@coep.ac.in",
 //		ContactNo:      "+912025507000",
 //		Website:        "https://www.coep.org.in/",
@@ -93,8 +71,7 @@ func main() {
 //		CollegeId:     "2",
 //		Name:          "SCTR'S Pune Institute of Computer Technology",
 //		Address:       "Survey No. 27, Near Trimurti Chowk, Dhankawadi, Pune-411043, Maharashtra (India).",
-//		Images:        []string{"https://cache.careers360.mobi/media/presets/720X480/colleges/social-media/media-gallery/3137/2018/8/8/Pune-Institute-of-Computer-Technology-Pune.png",
-//								"https://www.campustimespune.com/wp-content/uploads/2015/03/PICT-College-Building-Pune.jpg"},
+//		Images:        []string{"https://cache.careers360.mobi/media/presets/720X480/colleges/social-media/media-gallery/3137/2018/8/8/Pune-Institute-of-Computer-Technology-Pune.png","https://pict.edu/images/pic.jpg","https://www.campustimespune.com/wp-content/uploads/2015/03/PICT-College-Building-Pune.jpg"},
 //		Email:         "pict@pic.ac.in",
 //		ContactNo:     "+912024371101",
 //		Website:       "https://pict.edu/",
@@ -119,8 +96,7 @@ func main() {
 //		CollegeId:     "3",
 //		Name:          "Pimpri Chinchwad Education Trust's Pimpri Chinchwad College Of Engineering",
 //		Address:       "Sector -26, Pradhikaran, Nigdi,Near Akurdi Railway Station, Pune - 411 044.",
-//		Images:        []string{"https://images.collegedunia.com/public/college_data/images/appImage/14564_PCCE_New.jpg",
-//								"https://images.shiksha.com/mediadata/images/1600151627phpOVW3t7.png"},
+//		Images:        []string{"https://images.collegedunia.com/public/college_data/images/appImage/14564_PCCE_New.jpg","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ00VUqVh8w4CvpjBnJrHRs2-kQzKQMHHUcaMxKtGSiZ7NqwrIZ6cln4cksjG4iROae38&usqp=CAU","https://images.shiksha.com/mediadata/images/1600151627phpOVW3t7.png"},
 //		Email:         "pccoeadmin@gmail.com",
 //		ContactNo:     "+919960984347 ",
 //		Website:       "http://www.pccoepune.com/",
@@ -145,8 +121,7 @@ func main() {
 //		CollegeId:     "4",
 //		Name:          "Government Polytechnic, Pune",
 //		Address:       "Ganeshkhind, University Road,Shivajinagar,Pune-411016, Maharashtra, India.",
-//		Images:        []string{"https://gppune.ac.in/images/slider1n2.jpg",
-//								"https://www.gpawasari.ac.in/images/Two.JPG"},
+//		Images:        []string{"https://gppune.ac.in/images/slider1n2.jpg","https://www.infinitecourses.com/admin/Upload/Institutes/634191970359882812_GPP.jpg","https://www.gpawasari.ac.in/images/Two.JPG"},
 //		Email:         "gpune@gmail.com",
 //		ContactNo:     "+912025559200",
 //		Website:       "https://gppune.ac.in/",
@@ -171,8 +146,7 @@ func main() {
 //		CollegeId:     "5",
 //		Name:          "Pimpri Chinchwad Polytechnic College",
 //		Address:       "Sector No. 26, Pradhikaran, Nigdi, Pune - 411 044",
-//		Images:        []string{"http://pcet.org.in/images/PCET-Institutes-PCP.png",
-//								"https://images.shiksha.com/mediadata/images/1556012345phpr1ztG3.png"},
+//		Images:        []string{"http://pcet.org.in/images/PCET-Institutes-PCP.png","https://www.pcpolytechnic.com/images/main-logo.png","https://images.shiksha.com/mediadata/images/1556012345phpr1ztG3.png"},
 //		Email:         "pcpolytechnic@gmail.com",
 //		ContactNo:     "+912027654156",
 //		Website:       "https://www.pcpolytechnic.com",
@@ -197,8 +171,7 @@ func main() {
 //		CollegeId:     "6",
 //		Name:          "AFMC Pune - Armed Forces Medical College",
 //		Address:       "Southern Command, Solapur - Pune Hwy, near Race Course, Wanowrie, Pune, Maharashtra 411040",
-//		Images:        []string{"https://afmc.nic.in/assests/img/afmc-whyus-background.png",
-//								"https://afmc.nic.in/assests/img/afmc-student-background.jpg"},
+//		Images:        []string{"https://afmc.nic.in/assests/img/afmc-whyus-background.png","https://upload.wikimedia.org/wikipedia/en/thumb/3/38/Armed_Forces_Medical_College_%28India%29_Logo.png/220px-Armed_Forces_Medical_College_%28India%29_Logo.png","https://afmc.nic.in/assests/img/afmc-student-background.jpg"},
 //		Email:         "afmc@afmc.nic.in",
 //		ContactNo:     "+912026334230",
 //		Website:       "https://www.afmc.nic.in/",
@@ -223,8 +196,7 @@ func main() {
 //		CollegeId:     "7",
 //		Name:          "Bharati Vidyapeeth Deemed University Medical College",
 //		Address:       "Medical College Road, Pune - Satara Rd, Dhankawadi, Pune, Maharashtra 411043",
-//		Images:        []string{"https://content3.jdmagicbox.com/comp/pune/w9/020pxx20.xx20.100913150650.f3w9/catalogue/medical-college-pune-dhankawadi-pune-medical-colleges-4fk9mv2.png",
-//								"https://mcpune.bharatividyapeeth.edu/media/images/MCPune_Home-1_191118.jpg"},
+//		Images:        []string{"https://content3.jdmagicbox.com/comp/pune/w9/020pxx20.xx20.100913150650.f3w9/catalogue/medical-college-pune-dhankawadi-pune-medical-colleges-4fk9mv2.png","https://bvuniversity.edu.in/images/bvdu_transparent_logo_nov_17.png","https://mcpune.bharatividyapeeth.edu/media/images/MCPune_Home-1_191118.jpg"},
 //		Email:         "afmc@afmc.nic.in",
 //		ContactNo:     "+912026334230",
 //		Website:       "https://mcpune.bharatividyapeeth.edu/",
@@ -274,91 +246,3 @@ func main() {
 
 //	//*/
 //}
-/*
-	base := database.InitRedisDataBase()
-	err := base.CreateSchema()
-	if err != nil {
-		fmt.Println("Schema : ", err)
-	}
-
-	ctx := context.TODO()
-
-	err = base.SETCollege(ctx, &structure.CollegeData{
-		CollegeId: "1",
-		Name:      "College Of Engineering Pune",
-		Address:   "Shivaji Nagar",
-		Images:    []string{"https://image1.com/image", "https://image2.com/image"},
-		Email:     "coep@coep.ac.in",
-		ContactNo: "1234567890",
-		Website:   "www.coep.in",
-		VrImages:  []string{"url1", "url2"},
-		Location: structure.Location{
-			Longitude: 0,
-			Latitude:  0,
-		},
-		Hostel:        true,
-		Cutoff:        99,
-		Fees:          100000,
-		InstituteType: pb.InstituteType_GOV,
-		Details:       "Some INFO",
-		CourseId:      3,
-		Courses: structure.Courses{
-			EngineeringCourses: []pb.EngineeringCourses{pb.EngineeringCourses_COMPUTER_ENG, pb.EngineeringCourses_MECHANICAL_ENG},
-			MedicalCourses:     nil,
-			DiplomaCourses:     []pb.DiplomaCourses{pb.DiplomaCourses_COMPUTER_DIP, pb.DiplomaCourses_MECHANICAL_DIP},
-		},
-	})
-	if err != nil {
-		fmt.Println("Insert 1 : ", err)
-	}
-
-	err = base.SETCollege(ctx, &structure.CollegeData{
-		CollegeId: "2",
-		Name:      "Smt Sharchchandrika suresh patil institute of technology chopda",
-		Address:   "Some thing",
-		Images:    []string{"https://image1.com/image", "https://image2.com/image"},
-		Email:     "ssp@ssp.ac.in",
-		ContactNo: "1234567890",
-		Website:   "www.ssp.in",
-		VrImages:  []string{"url1", "url2"},
-		Location: structure.Location{
-			Longitude: 0,
-			Latitude:  0,
-		},
-		Hostel:        true,
-		Cutoff:        80,
-		Fees:          25,
-		InstituteType: pb.InstituteType_GOV,
-		Details:       "Some INFO",
-		CourseId:      2,
-		Courses: structure.Courses{
-			EngineeringCourses: nil,
-			MedicalCourses:     nil,
-			DiplomaCourses:     []pb.DiplomaCourses{pb.DiplomaCourses_COMPUTER_DIP, pb.DiplomaCourses_MECHANICAL_DIP},
-		},
-	})
-	if err != nil {
-		fmt.Println("Insert 2 : ", err)
-	}
-
-	fmt.Println("Complete ..!!")
-	doc, err := base.SearchWithFilters(&pb.SearchRequest{
-		Location:           nil,
-		SearchQuery:        nil,
-		Hostel:             true,
-		EngineeringCourses: nil,
-		MedicalCourses:     nil,
-		DiplomaCourses:     nil,
-		Cutoff:             nil,
-		Distance:           nil,
-		Fees:               nil,
-		InstituteType:      0,
-		CourseId:           nil,
-	})
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Complete ..!!", doc)
-
-
-*/

@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgis/postgis
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DBUser}
+      - POSTGRES_PASSWORD=${DBPassword}
+      - POSTGRES_DB=${DBName}
+
+    ports:
+      - "${DBPort}:5432"
+    volumes:
+      - ./docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    container_name: postgres
+
+  app:
+    build: .
+    ports:
+      - "4356:4356"
+    restart: on-failure
+    depends_on:
+      - postgres
+    container_name: app
+    command: ["./start.sh"]
+

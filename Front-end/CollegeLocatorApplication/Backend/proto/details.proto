@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+option java_multiple_files = true;
+option java_package = "com.collegelocator.collegelocatorapplication.services";
+
+import "common.proto";
+
+message DetailsRequest {
+  string collegeId = 9;
+}
+
+message DetailsResponse {
+  string college_id = 10;
+  string name = 11;
+  string address = 12;
+  repeated string images = 13;
+  string email = 14;
+  string contact_no = 15;
+  string website = 16;
+  string course_type = 47;
+  Location location = 17;
+  bool hostel = 18;
+  float cutoff = 19;
+  float fees = 20;
+  bool instituteType = 21;
+  string details = 22;
+  repeated string courses = 23;
+  repeated string vr_image = 24;
+
+}

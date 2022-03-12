@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+option java_multiple_files = true;
+option java_package = "com.collegelocator.collegelocatorapplication.services";
+
+import "common.proto";
+
+message InitRequest {
+  Location location = 1;
+}
+
+message InitResponse {
+  string Image = 2;
+  string Name = 3;
+  string address = 4;
+  string collegeId = 5;
+  float maxRangeFees = 6;
+}

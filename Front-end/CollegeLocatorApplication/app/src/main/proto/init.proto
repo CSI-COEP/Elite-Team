@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+option java_multiple_files = true;
+option java_package = "com.collegelocator.collegelocatorapplication.services";
+
+message InitRequest {
+}
+
+message InitResponse {
+  float minRangeFees = 3;
+  float minRangeCutoff = 2;
+  float maxRangeFees = 6;
+  float maxRangeCutoff = 5;
+}

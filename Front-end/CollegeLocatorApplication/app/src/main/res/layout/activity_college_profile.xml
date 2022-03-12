@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CollegeProfileActivity">
+    
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imgClgImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/border_layout"
+                    android:elevation="10dp"
+                    android:padding="4dp"
+                    android:scaleType="centerCrop" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtClgName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="College Name"
+                    android:textSize="20sp"
+                    android:layout_margin="8dp"
+                    android:padding="2dp"
+                    android:layout_below="@id/imgClgImage"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/dvd"
+                    style="@style/Divider"
+                    android:background="@color/black"
+                    android:layout_below="@id/txtClgName" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtClgAbout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="540dp"
+                    android:text="About The College"
+                    android:textSize="14sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/dvd" />
+
+                <TableLayout
+                    android:id="@+id/tableLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtClgAbout">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtAddressTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtClgAbout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:padding="2dp"
+                            android:text="Address:"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtClgAbout"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@id/txtAddressTag"
+                            android:padding="2dp"
+                            android:text="Address of the College"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtPhoneTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phone:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:padding="2dp"
+                            android:drawableLeft="@drawable/ic_baseline_phone_24"
+                            android:layout_below="@id/txtAddressTag"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtAddress"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@id/txtPhoneTag"
+                            android:padding="2dp"
+                            android:text="1234567890"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtEmailTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Email:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:padding="2dp"
+                            android:drawableLeft="@drawable/ic_baseline_email_24"
+                            android:layout_below="@id/txtPhoneTag"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtPhone"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_toEndOf="@id/txtEmailTag"
+                            android:padding="2dp"
+                            android:text="collegeemail@email.com"
+                            android:textSize="16sp" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <View
+                    style="@style/Divider"
+                    android:background="@color/black"
+                    android:layout_below="@id/tableLayout1" />
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tableLayout1">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="More Details:"
+                            android:textSize="18sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:padding="2dp"
+                            android:textStyle="bold" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cutoff:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtCutOff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Rank 150"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hostel:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtHostel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yes"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Average Fees:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtAvgFees"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="200000"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Institute Type:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtClgType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Government"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Deemed:"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/txtDeemed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Yes"
+                            android:textSize="16sp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="3dp"
+                            android:padding="2dp" />
+
+                    </TableRow>
+
+                </TableLayout>
+
+                <View
+                    style="@style/Divider"
+                    android:background="@color/black"
+                    android:layout_below="@id/tableLayout" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txtCoursesTag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available Courses:"
+                    android:textSize="20sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:padding="2dp"
+                    android:layout_below="@id/tableLayout"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/rll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtCoursesTag"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/border_layout">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerCourses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/btnVR"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/rll"
+                    android:text="Virtual Tour"
+                    android:layout_marginBottom="20dp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

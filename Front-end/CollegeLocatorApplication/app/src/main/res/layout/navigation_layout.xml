@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtFilter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,8 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="22dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="22dp"
                 android:text="Apply Filters" />
 
         </RelativeLayout>
@@ -38,7 +38,7 @@
             style="@style/Divider"
             android:background="@color/black" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Category:"
@@ -87,7 +87,7 @@
             style="@style/Divider"
             android:background="@color/black" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fees:"
@@ -99,17 +99,13 @@
         <com.google.android.material.slider.Slider
             android:id="@+id/slider_fees"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:valueFrom="1"
-            android:stepSize="0.5"
-            android:value="2"
-            android:valueTo="8" />
+            android:layout_height="wrap_content" />
 
         <View
             style="@style/Divider"
             android:background="@color/black" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Distance:"
@@ -121,9 +117,11 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="15dp"
+            android:id="@+id/radioGroup1">
 
             <RadioButton
+                android:id="@+id/radioBtnDAny"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Any"
@@ -132,6 +130,7 @@
                 android:textColor="@color/black" />
 
             <RadioButton
+                android:id="@+id/radioBtnNearby"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nearby(50Km)"
@@ -139,6 +138,7 @@
                 android:textColor="@color/black" />
 
             <RadioButton
+                android:id="@+id/radioBtnFar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="A bit Far(100Km)"
@@ -146,6 +146,7 @@
                 android:textColor="@color/black" />
 
             <RadioButton
+                android:id="@+id/radioBtnReallyFar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Really Far(200Km)"
@@ -158,7 +159,7 @@
             style="@style/Divider"
             android:background="@color/black" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CutOff:"
@@ -170,17 +171,13 @@
         <com.google.android.material.slider.Slider
             android:id="@+id/slider_cutoff"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:valueFrom="10"
-            android:stepSize="5"
-            android:value="150"
-            android:valueTo="2000" />
+            android:layout_height="wrap_content" />
 
         <View
             style="@style/Divider"
             android:background="@color/black" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Institute Type:"
@@ -192,9 +189,11 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="15dp"
+            android:id="@+id/radioGroup2">
 
             <RadioButton
+                android:id="@+id/radioBtnIAny"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Any"
@@ -203,6 +202,7 @@
                 android:textColor="@color/black" />
 
             <RadioButton
+                android:id="@+id/radioBtnGov"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Government"
@@ -210,6 +210,7 @@
                 android:textColor="@color/black" />
 
             <RadioButton
+                android:id="@+id/radioBtnPri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Private"
@@ -239,7 +240,7 @@
             android:layout_height="wrap_content"
             android:weightSum="5">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"

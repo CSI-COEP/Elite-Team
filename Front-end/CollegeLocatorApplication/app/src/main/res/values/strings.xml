@@ -1,4 +1,17 @@
 <resources>
     <string name="app_name">CollegeLocatorApplication</string>
-    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string-array name="planets_array">
+        <item>Maharashtra</item>
+        <item>Madhya Pradesh</item>
+        <item>Kerala</item>
+        <item>Arunachal Pradesh</item>
+        <item>Gujarat</item>
+        <item>Nagaland</item>
+        <item>Punjab</item>
+        <item>Rajasthan</item>
+        <item>Tamil Nadu</item>
+        <item>Chandigarh</item>
+        <item>Chandigarh</item>
+    </string-array>
 </resources>

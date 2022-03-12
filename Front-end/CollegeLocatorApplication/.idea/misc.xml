@@ -3,14 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/drawable/border_layout.xml" value="0.123" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/drawable/et_rounded_white.xml" value="0.1245" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/drawable/navigation_drawer_bkg.xml" value="0.1245" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/drawable/sheet_background.xml" value="0.1245" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/layout/activity_maps.xml" value="0.20416666666666666" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/layout/bottom_sheet.xml" value="0.20416666666666666" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/layout/college_card.xml" value="0.1" />
-        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/layout/navigation_layout.xml" value="0.2384428223844282" />
+        <entry key="..\:/Apps/Elite-Team/Front-end/CollegeLocatorApplication/app/src/main/res/layout/navigation_layout.xml" value="0.1" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/drawable/border_layout.xml" value="0.112" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/drawable/et_rounded_white.xml" value="0.117" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/drawable/navigation_drawer_bkg.xml" value="0.117" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/drawable/sheet_background.xml" value="0.117" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/activity_college_profile.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/activity_maps.xml" value="0.13994565217391305" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/activity_splash_screen.xml" value="0.18795289855072464" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/activity_vractivity.xml" value="0.16927083333333334" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/bottom_sheet.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/college_card.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/courses_single_row.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/ADMIN/AndroidStudioProjects/college-locator-app/app/src/main/res/layout/navigation_layout.xml" value="0.22" />
       </map>
     </option>
   </component>

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+option java_multiple_files = true;
+option java_package = "com.collegelocator.collegelocatorapplication.services";
+
+message Location {
+  float Longitude = 7;
+  float Latitude = 8;
+
+}
+
+enum EngineeringCourses {
+  COMPUTER_ENG = 0;
+  CHEMICAL_ENG = 1;
+  CIVIL_ENG = 2;
+  ELECTRICAL_ENG = 3;
+  MECHANICAL_ENG = 4;
+  PETROCHEMICAL_ENG = 5;
+  META_ENG = 6;
+
+}
+
+enum DiplomaCourses {
+  COMPUTER_DIP = 0;
+  CHEMICAL_DIP = 1;
+  CIVIL_DIP = 2;
+  ELECTRICAL_DIP = 3;
+  MECHANICAL_DIP = 4;
+  PETROCHEMICAL_DIP = 5;
+  META_DIP = 6;
+
+}
+
+enum MedicalCourses {
+  MBBS_MED = 0;
+  BPT_MED = 1;
+  BSC_MED = 2;
+  NURSING_MED = 3;
+  BDS_MED = 4;
+  BHMS_MDS = 5;
+
+}
+
+enum Distance {
+  NEARBY = 0;
+  MID_RANGE = 2;
+  LONG_RANGE = 3;
+
+}
+

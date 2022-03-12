@@ -4,34 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapsActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="20dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark"
-                app:layout_scrollFlags="scroll|enterAlways" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_height="match_parent">
 
             <fragment
                 android:id="@+id/map"
@@ -46,22 +27,6 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/et_rounded_white" />
 
-            <Button
-                android:id="@+id/btn_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Test" />
-
-            <Button
-                android:id="@+id/btn_temp1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_below="@id/btn_temp"
-                android:text="Test2" />
-
-
         </RelativeLayout>
 
         <include layout="@layout/bottom_sheet" />
@@ -73,6 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/navigation_drawer_bkg"/>
+        android:background="@drawable/navigation_drawer_bkg" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

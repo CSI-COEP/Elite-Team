@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+option java_multiple_files = true;
+option java_package = "com.collegelocator.collegelocatorapplication.services";
+
+import "search.proto";
+import "init.proto";
+import "details.proto";
+
+service CollegeLocatorService {
+  rpc InitApp(InitRequest) returns (InitResponse);
+  rpc Search(SearchRequest) returns (stream SearchResponse);
+  rpc Details(DetailsRequest) returns (DetailsResponse);
+}

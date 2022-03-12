@@ -27,5 +27,6 @@ message DetailsResponse {
   string details = 22;
   repeated string courses = 23;
   repeated string vr_image = 24;
+  bool deemed = 50;
 
 }

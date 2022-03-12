@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option go_package = ".;pb";
+option java_multiple_files = true;
+option java_package = "com.collegelocator.collegelocatorapplication.services";
+
+import "common.proto";
+
+message SearchRequest {
+  Location location = 25;
+  Distance distance =  26;
+  bool location_null = 50;//If specified then true
+
+  string searchQuery = 27;
+  bool searchQuery_is_null = 28; //If specified then true
+
+  bool hostel = 29;
+  bool hostel_is_null = 30;//If specified then true
+
+  string courseId = 31;
+  bool courseId_null = 32;//If specified then true
+
+  string state = 33;
+  bool state_null = 34;//If specified then true
+
+  bool deemed = 35;
+  bool deemed_null = 36;//If specified then true
+
+  int32 cutoff =  37;
+  bool cutoff_null = 38;//If specified then true
+
+  int32 fees = 39;
+  bool fees_null = 40;//If specified then true
+
+  bool instituteType = 41; // 1 = GOV and 0 = PRI
+  bool instituteType_null = 42;//If specified then true
+
+  string courseType = 48;
+  bool courseType_null = 49;//If specified then true
+
+}
+
+message SearchResponse {
+  string Image = 43;
+  string Name = 44;
+  string address = 45;
+  string collegeId = 46;
+}

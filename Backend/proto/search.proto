@@ -41,6 +41,7 @@ message SearchRequest {
 }
 
 message SearchResponse {
+  Location location = 1;
   string Image = 43;
   string Name = 44;
   string address = 45;

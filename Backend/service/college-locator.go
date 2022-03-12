@@ -19,11 +19,16 @@ func NewDataServer() *DataServer {
 }
 
 func (dataServer *DataServer) InitApp(ctx context.Context, request *pb.InitRequest) (*pb.InitResponse, error) {
-	fees, cutoff, err := dataServer.postgresDb.GetMaxFeesAndCutoff(ctx)
+	rangeData, err := dataServer.postgresDb.GetFeesAndCutoff(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return &pb.InitResponse{MaxRangeFees: fees, MaxRangeCutoff: cutoff}, nil
+	return &pb.InitResponse{
+		MaxRangeFees: rangeData.MAXFees,
+		MinRangeFees: rangeData.MINFees,
+		MaxRangeCutoff: rangeData.MAXCutoff,
+		MinRangeCutoff: rangeData.MINCutoff,
+	}, nil
 }
 
 func (dataServer *DataServer) Search(request *pb.SearchRequest, stream pb.CollegeLocatorService_SearchServer) error {
@@ -35,6 +40,10 @@ func (dataServer *DataServer) Search(request *pb.SearchRequest, stream pb.Colleg
 				Name:      data.Name,
 				Address:   data.Address,
 				CollegeId: data.CollegeId,
+				Location: &pb.Location{
+					Longitude: data.Longitude,
+					Latitude:  data.Latitude,
+				},
 			})
 			return err
 		},

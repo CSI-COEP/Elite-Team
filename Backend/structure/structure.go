@@ -11,6 +11,13 @@ type Location struct {
 	Latitude  float32 `json:"latitude"`
 }
 
+type RangeData struct {
+	MINFees float32 `json:"min_fees" db:"min_fees"`
+	MAXFees float32 `json:"max_fees" db:"max_fees"`
+	MINCutoff float32 `json:"min_cutoff" db:"min_cutoff"`
+	MAXCutoff float32 `json:"max_cutoff" db:"max_cutoff"`
+}
+
 type CollegeData struct {
 	CollegeId      string         `json:"college_id" db:"college_id"`
 	Name           string         `json:"name" db:"name"`

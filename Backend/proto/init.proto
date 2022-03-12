@@ -8,6 +8,8 @@ message InitRequest {
 }
 
 message InitResponse {
+  float minRangeFees = 3;
+  float minRangeCutoff = 2;
   float maxRangeFees = 6;
   float maxRangeCutoff = 5;
 }

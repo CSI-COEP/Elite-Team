@@ -76,10 +76,10 @@ func (postgresDb *PostgresDatabase) SearchCollege(ctx context.Context, searchReq
 		filters += " and institute_type=" + strconv.FormatBool(searchRequest.GetInstituteType()) + " "
 	}
 	if searchRequest.GetStateNull() == true {
-		filters += " and state=" + searchRequest.GetState() + " "
+		filters += " and state='" + searchRequest.GetState() + "' "
 	}
 	if searchRequest.GetCourseTypeNull() == true {
-		filters += " and course_type=" + searchRequest.GetCourseType() + " "
+		filters += " and course_type='" + searchRequest.GetCourseType() + "' "
 	}
 	if searchRequest.GetDeemedNull() == true {
 		filters += " and deemed=" + strconv.FormatBool(searchRequest.GetDeemed()) + " "

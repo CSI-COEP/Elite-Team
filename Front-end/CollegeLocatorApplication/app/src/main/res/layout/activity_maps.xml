@@ -30,7 +30,7 @@
 
             <Button
                 android:id="@+id/btn_filter_navigationView"
-                android:layout_width="25dp"
+                android:layout_width="35dp"
                 android:layout_height="220dp"
                 android:layout_centerVertical="true"
                 android:background="@drawable/custom_button"

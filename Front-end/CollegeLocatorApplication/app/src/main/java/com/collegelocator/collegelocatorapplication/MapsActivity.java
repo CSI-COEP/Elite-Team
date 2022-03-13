@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -128,10 +130,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onQueryTextChange(String newText) {
                 String searchString = searchView.getQuery().toString();
+                if (!searchString.trim().isEmpty()) {
+                    searchWrapper.setSearchQuery(searchString, true);
+                } else {
+                    searchWrapper.setSearchQuery(searchString, false);
+                }
+                new SearchAsync().execute();
                 return true;
             }
         });
-
 
 
         if (checkInternetConnection()) {
@@ -145,6 +152,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             NavigationView navigationView = findViewById(R.id.navigationView);
             View headerView = LayoutInflater.from(MapsActivity.this).inflate(R.layout.navigation_layout, null);
             navigationView.addHeaderView(headerView);
+
+            DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+            Button btn_filters_navigationView = findViewById(R.id.btn_filter_navigationView);
+            btn_filters_navigationView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    drawerLayout.openDrawer(Gravity.LEFT);
+                }
+
+            });
 
 
             /*Slider Cutoff*/
@@ -193,6 +212,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             applyFilters = headerView.findViewById(R.id.btn_apply_filters);
             applyFilters.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View view) {
 
@@ -214,32 +234,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             searchWrapper.setCourseType("", false);
                     }
 
-                    com.collegelocator.collegelocatorapplication.services.Location location1 = com.collegelocator.collegelocatorapplication.services.Location.newBuilder().setLatitude((float) userLocation.getLatitude()).setLongitude((float) userLocation.getLongitude()
-                    ).build();
-                    switch (radioGroupDistance.getCheckedRadioButtonId()) {
+                    com.collegelocator.collegelocatorapplication.services.Location location1 =
+                            com.collegelocator.collegelocatorapplication.services.Location.newBuilder()
+                                    .setLatitude((float) userLocation.getLatitude())
+                                    .setLongitude((float) userLocation.getLongitude())
+                                    .build();
 
+                    Log.d("LOCATION_SET_MAP", "" + location1);
+                    switch (radioGroupDistance.getCheckedRadioButtonId()) {
                         case R.id.radioBtnNearby:
-                            searchWrapper.setLocation(location1);
                             searchWrapper.setDistance(Distance.NEARBY);
+                            searchWrapper.setLocation(location1);
                             break;
 
                         case R.id.radioBtnFar:
-                            searchWrapper.setLocation(location1);
                             searchWrapper.setDistance(Distance.MID_RANGE);
+                            searchWrapper.setLocation(location1);
                             break;
 
                         case R.id.radioBtnReallyFar:
-                            searchWrapper.setLocation(location1);
                             searchWrapper.setDistance(Distance.LONG_RANGE);
+                            searchWrapper.setLocation(location1);
                             break;
 
                         default:
                             searchWrapper.setDistance(null);
-
+                            searchWrapper.setLocation(null);
                     }
 
                     switch (radioGroupInstitute.getCheckedRadioButtonId()) {
-
                         case R.id.radioBtnGov:
                             searchWrapper.setInstituteType(false, true);
                             break;
@@ -254,19 +277,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
 
                     if (((CheckBox) headerView.findViewById(R.id.chk_deemed)).isChecked()) {
-                        searchWrapper.setDeemed(true);
+                        searchWrapper.setDeemed(true, true);
                     } else {
-                        searchWrapper.setDeemed(false);
+                        searchWrapper.setDeemed(false, false);
                     }
 
                     if (((CheckBox) headerView.findViewById(R.id.chk_hostel)).isChecked()) {
-                        searchWrapper.setHostel(true);
+                        searchWrapper.setHostel(true, true);
                     } else {
-                        searchWrapper.setHostel(false);
+                        searchWrapper.setHostel(false, false);
                     }
 
                     if (!states[spinner.getSelectedItemPosition()].equals("Any")) {
-                        searchWrapper.setState(states[spinner.getSelectedItemPosition()]);
+                        searchWrapper.setState(states[spinner.getSelectedItemPosition()], true);
+                    } else {
+                        searchWrapper.setState(states[spinner.getSelectedItemPosition()], false);
+                    }
+
+                    if (sliderFees.getValueFrom() != sliderFees.getValue()) {
+                        searchWrapper.setFees((int) sliderFees.getValue(), true);
+                    } else {
+                        searchWrapper.setFees((int) sliderFees.getValue(), false);
+                    }
+
+                    if (sliderCutoff.getValueFrom() != sliderCutoff.getValue()) {
+                        searchWrapper.setCutoff((int) sliderCutoff.getValue(), true);
+                    } else {
+                        searchWrapper.setCutoff((int) sliderCutoff.getValue(), false);
                     }
 
                     new SearchAsync().execute();
@@ -340,6 +377,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         searchWrapper.setLocation(null);
                     }
                     collegeCardAdapter.clear();
+                    mMap.clear();
+                    showUserLocation(userLocation.getLatitude(), userLocation.getLongitude());
                     //SearchWrapper searchWrapper = new SearchWrapper();
                     searchWrapper.SearchColleges(
                             new RecycleViewUpdater() {

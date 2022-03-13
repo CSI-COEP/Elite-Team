@@ -41,17 +41,5 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/border_layout" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:gravity="center|top"
-        android:text="Colleges Based on Your Search"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
 
 </LinearLayout>

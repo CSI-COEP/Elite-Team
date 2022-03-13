@@ -95,6 +95,8 @@ public class SearchWrapper {
 
         SearchRequest searchRequest = requestBuilder.build();
         Log.d("SearchWrapper", "Search Request Is Ready...!!");
+        Log.d("LOCATION_SET", "" + location);
+        Log.d("DISTANCE_SET", "" + distance);
         try {
             Iterator<SearchResponse> searchResponseIterator = blockingStub.withDeadlineAfter(5, TimeUnit.MINUTES).search(searchRequest);
             while (searchResponseIterator.hasNext()) {
@@ -128,9 +130,9 @@ public class SearchWrapper {
         return searchQuery;
     }
 
-    public SearchWrapper setSearchQuery(String searchQuery) {
+    public SearchWrapper setSearchQuery(String searchQuery, boolean notNull) {
         this.searchQuery = searchQuery;
-        this.searchQuery_not_null = true;
+        this.searchQuery_not_null = notNull;
         return this;
     }
 
@@ -138,9 +140,9 @@ public class SearchWrapper {
         return hostel;
     }
 
-    public SearchWrapper setHostel(boolean hostel) {
+    public SearchWrapper setHostel(boolean hostel, boolean notNull) {
         this.hostel = hostel;
-        this.hostel_not_null = true;
+        this.hostel_not_null = notNull;
         return this;
     }
 
@@ -158,9 +160,9 @@ public class SearchWrapper {
         return state;
     }
 
-    public SearchWrapper setState(String state) {
+    public SearchWrapper setState(String state, boolean notNull) {
         this.state = state;
-        this.state_not_null = true;
+        this.state_not_null = notNull;
         return this;
     }
 
@@ -168,9 +170,9 @@ public class SearchWrapper {
         return deemed;
     }
 
-    public SearchWrapper setDeemed(boolean deemed) {
+    public SearchWrapper setDeemed(boolean deemed, boolean notNull) {
         this.deemed = deemed;
-        this.deemed_not_null = true;
+        this.deemed_not_null = notNull;
         return this;
     }
 
@@ -178,9 +180,9 @@ public class SearchWrapper {
         return cutoff;
     }
 
-    public SearchWrapper setCutoff(int cutoff) {
+    public SearchWrapper setCutoff(int cutoff, boolean notNull) {
         this.cutoff = cutoff;
-        this.cutoff_not_null = true;
+        this.cutoff_not_null = notNull;
         return this;
     }
 
@@ -188,9 +190,9 @@ public class SearchWrapper {
         return fees;
     }
 
-    public SearchWrapper setFees(int fees) {
+    public SearchWrapper setFees(int fees, boolean notNull) {
         this.fees = fees;
-        this.fees_not_null = true;
+        this.fees_not_null = notNull;
         return this;
     }
 

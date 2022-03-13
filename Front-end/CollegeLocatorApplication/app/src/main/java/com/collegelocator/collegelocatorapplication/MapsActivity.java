@@ -240,8 +240,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     .setLongitude((float) userLocation.getLongitude())
                                     .build();
 
+
                     Log.d("LOCATION_SET_MAP", "" + location1);
                     switch (radioGroupDistance.getCheckedRadioButtonId()) {
+
                         case R.id.radioBtnNearby:
                             searchWrapper.setDistance(Distance.NEARBY);
                             searchWrapper.setLocation(location1);
@@ -260,6 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         default:
                             searchWrapper.setDistance(null);
                             searchWrapper.setLocation(null);
+                            break;
                     }
 
                     switch (radioGroupInstitute.getCheckedRadioButtonId()) {
@@ -373,9 +376,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void run() {
                     if (locations.length != 0) {
                         searchWrapper.setLocation(locations[0]);
-                    } else {
-                        searchWrapper.setLocation(null);
                     }
+                    //else {
+                    // searchWrapper.setLocation(null);
+                    //}
                     collegeCardAdapter.clear();
                     mMap.clear();
                     showUserLocation(userLocation.getLatitude(), userLocation.getLongitude());

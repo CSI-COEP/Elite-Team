@@ -67,10 +67,10 @@ func (postgresDb *PostgresDatabase) SearchCollege(ctx context.Context, searchReq
 		filters += "and hostel=" + strconv.FormatBool(searchRequest.GetHostel()) + " "
 	}
 	if searchRequest.GetCutoffNull() == true {
-		filters += " and cutoff between 0" + string(searchRequest.GetCutoff()) + " "
+		filters += " and cutoff between 0 and " + fmt.Sprintf("%v",searchRequest.GetCutoff()) + " "
 	}
 	if searchRequest.GetFeesNull() == true {
-		filters += " and fees between 0" + string(searchRequest.GetFees()) + " "
+		filters += " and fees between 0 and " + fmt.Sprintf("%v",searchRequest.GetFees()) + " "
 	}
 	if searchRequest.GetInstituteTypeNull() == true {
 		filters += " and institute_type=" + strconv.FormatBool(searchRequest.GetInstituteType()) + " "
@@ -97,15 +97,17 @@ func (postgresDb *PostgresDatabase) SearchCollege(ctx context.Context, searchReq
 	var distance int = 0
 	switch searchRequest.GetDistance() {
 	case pb.Distance_NEARBY:
-		distance = 1000
+		distance = 50
 		break
 	case pb.Distance_MID_RANGE:
-		distance = 10000
+		distance = 500
 		break
 	case pb.Distance_LONG_RANGE:
-		distance = 20000
+		distance = 5000
 		break
 	}
+
+	fmt.Println(searchRequest)
 
 	if searchRequest.Location != nil || searchRequest.GetLocationNull() == true {
 		query := fmt.Sprintf("SELECT *, point(%G, %G) <@> point(longitude, latitude)::point as distance FROM college_data WHERE (point(%G, %G) <@> point(longitude, latitude)) < %d and 1=1 %s ORDER BY distance LIMIT 20;", searchRequest.Location.Longitude, searchRequest.Location.Latitude, searchRequest.Location.Longitude, searchRequest.Location.Latitude, distance, filters)
@@ -118,7 +120,6 @@ func (postgresDb *PostgresDatabase) SearchCollege(ctx context.Context, searchReq
 	}
 
 	if err != nil {
-		panic(err)
 		return err
 	}
 

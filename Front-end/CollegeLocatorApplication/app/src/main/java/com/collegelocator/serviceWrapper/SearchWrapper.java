@@ -19,7 +19,7 @@ public class SearchWrapper {
     ManagedChannel mSearchChannel;
     CollegeLocatorServiceGrpc.CollegeLocatorServiceBlockingStub blockingStub;
 
-    Location location = null;
+    Location location;
     Distance distance = null;
 
     String searchQuery;
@@ -114,6 +114,7 @@ public class SearchWrapper {
 
     public SearchWrapper setLocation(Location location) {
         this.location = location;
+        Log.d("LOCATION_SET_fun", "" + location);
         return this;
     }
 

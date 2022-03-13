@@ -2,6 +2,7 @@ package com.collegelocator.collegelocatorapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,17 +24,16 @@ import interfaces.RecycleViewUpdater;
 public class CollegeProfileActivity extends AppCompatActivity {
 
     TextView clgName, clgAbout, txtAddress, txtPhone, txtEmail, txtCutOff, txtHostel, txtAvgFees, txtClgType, txtDeemed;
-    ImageView clgImage;
+    ImageView clgImage, clgLogo;
 
     String vrImage = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_college_profile);
 
-        clgName= (TextView) findViewById(R.id.txtClgName);
+        clgName = (TextView) findViewById(R.id.txtClgName);
         clgAbout = (TextView) findViewById(R.id.txtClgAbout);
         txtAddress = (TextView) findViewById(R.id.txtAddress);
         txtPhone = (TextView) findViewById(R.id.txtPhone);
@@ -44,6 +44,7 @@ public class CollegeProfileActivity extends AppCompatActivity {
         txtClgType = (TextView) findViewById(R.id.txtClgType);
         txtDeemed = (TextView) findViewById(R.id.txtDeemed);
         clgImage = (ImageView) findViewById(R.id.imgClgImage);
+        clgLogo = (ImageView) findViewById(R.id.imgClgLogo);
 
     }
 
@@ -98,8 +99,19 @@ public class CollegeProfileActivity extends AppCompatActivity {
                         .fitCenter()
                         .into(clgImage);
 
+                Log.d("LoGo", response.getImages(1));
+
+                //Picasso.get().load(response.getImages(1)).into(clgLogo);
+
+                Glide.with(getApplicationContext())
+                        .load(response.getImages(1))
+                        .centerCrop()
+                        .fitCenter()
+                        .into(clgLogo);
+
                 for (String courseName : response.getCoursesList())
                     courses.add(new Courses(courseName));
+
 
             }
         });

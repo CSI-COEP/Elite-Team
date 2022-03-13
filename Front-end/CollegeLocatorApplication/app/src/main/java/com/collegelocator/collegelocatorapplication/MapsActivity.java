@@ -188,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @NonNull
                 @Override
                 public String getFormattedValue(float value) {
-                    return (String.valueOf(value) + "Lakh");
+                    return (String.valueOf((int) value));
                 }
             });
             /*Slider Done*/

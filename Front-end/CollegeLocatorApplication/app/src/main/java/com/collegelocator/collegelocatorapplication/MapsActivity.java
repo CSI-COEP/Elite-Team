@@ -1,21 +1,30 @@
 package com.collegelocator.collegelocatorapplication;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +34,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.collegelocator.collegelocatorapplication.services.Distance;
 import com.collegelocator.collegelocatorapplication.services.InitResponse;
 import com.collegelocator.collegelocatorapplication.services.SearchResponse;
 import com.collegelocator.serviceWrapper.InitWrapper;
@@ -62,14 +72,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static Location userLocation = null;
 
     public CallBackInterface callBackInterface = null;
+    private static GroupAdapter<ViewHolder> collegeCardAdapter;
+
+    private SearchView searchView;
+    private static SearchWrapper searchWrapper;
+    private Button applyFilters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        GroupAdapter<ViewHolder> collegeCardAdapter = new GroupAdapter<ViewHolder>();
+        searchWrapper = new SearchWrapper();
+
+        collegeCardAdapter = new GroupAdapter<ViewHolder>();
         RecyclerView recyclerCollegeCard = findViewById(R.id.recycler_clg);
+        recyclerCollegeCard.setAdapter(collegeCardAdapter);
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -85,6 +104,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(intent);
             }
         });
+
+
+
+        searchView = (SearchView) findViewById(R.id.etSearch);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.showSoftInput(view, 0);
+                    }
+                }
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                String searchString = searchView.getQuery().toString();
+                return true;
+            }
+        });
+
+
 
         if (checkInternetConnection()) {
             getUserLocation();
@@ -126,6 +174,104 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             });
             /*Slider Done*/
 
+            RadioGroup radioGroupCategory = headerView.findViewById(R.id.radioGroup0);
+            radioGroupCategory.check(R.id.all_chek);
+
+            RadioGroup radioGroupDistance = headerView.findViewById(R.id.radioGroup1);
+            radioGroupDistance.check(R.id.radioBtnDAny);
+
+            RadioGroup radioGroupInstitute = headerView.findViewById(R.id.radioGroup2);
+            radioGroupInstitute.check(R.id.radioBtnIAny);
+
+            String[] states = {"Any", "Maharashtra", "Madhya Pradesh", "Kerala", "Gujarat", "Rajasthan"};
+
+            //spinner
+            Spinner spinner = headerView.findViewById(R.id.spinner_states);
+            @SuppressLint("ResourceType") ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item, states);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(dataAdapter);
+
+            applyFilters = headerView.findViewById(R.id.btn_apply_filters);
+            applyFilters.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    switch (radioGroupCategory.getCheckedRadioButtonId()) {
+
+                        case R.id.diploma_chek:
+                            searchWrapper.setCourseType("POLYTECHNIC", true);
+                            break;
+
+                        case R.id.deg_chek:
+                            searchWrapper.setCourseType("ENGINEERING", true);
+                            break;
+
+                        case R.id.med_chek:
+                            searchWrapper.setCourseType("MEDICAL", true);
+                            break;
+
+                        default:
+                            searchWrapper.setCourseType("", false);
+                    }
+
+                    com.collegelocator.collegelocatorapplication.services.Location location1 = com.collegelocator.collegelocatorapplication.services.Location.newBuilder().setLatitude((float) userLocation.getLatitude()).setLongitude((float) userLocation.getLongitude()
+                    ).build();
+                    switch (radioGroupDistance.getCheckedRadioButtonId()) {
+
+                        case R.id.radioBtnNearby:
+                            searchWrapper.setLocation(location1);
+                            searchWrapper.setDistance(Distance.NEARBY);
+                            break;
+
+                        case R.id.radioBtnFar:
+                            searchWrapper.setLocation(location1);
+                            searchWrapper.setDistance(Distance.MID_RANGE);
+                            break;
+
+                        case R.id.radioBtnReallyFar:
+                            searchWrapper.setLocation(location1);
+                            searchWrapper.setDistance(Distance.LONG_RANGE);
+                            break;
+
+                        default:
+                            searchWrapper.setDistance(null);
+
+                    }
+
+                    switch (radioGroupInstitute.getCheckedRadioButtonId()) {
+
+                        case R.id.radioBtnGov:
+                            searchWrapper.setInstituteType(false, true);
+                            break;
+
+                        case R.id.radioBtnPri:
+                            searchWrapper.setInstituteType(true, true
+                            );
+                            break;
+
+                        default:
+                            searchWrapper.setInstituteType(false, false);
+                    }
+
+                    if (((CheckBox) headerView.findViewById(R.id.chk_deemed)).isChecked()) {
+                        searchWrapper.setDeemed(true);
+                    } else {
+                        searchWrapper.setDeemed(false);
+                    }
+
+                    if (((CheckBox) headerView.findViewById(R.id.chk_hostel)).isChecked()) {
+                        searchWrapper.setHostel(true);
+                    } else {
+                        searchWrapper.setHostel(false);
+                    }
+
+                    if (!states[spinner.getSelectedItemPosition()].equals("Any")) {
+                        searchWrapper.setState(states[spinner.getSelectedItemPosition()]);
+                    }
+
+                    new SearchAsync().execute();
+                }
+            });
 
             LinearLayout bottomSheet = findViewById(R.id.persistent_bottom_sheet);
             BottomSheetBehavior<LinearLayout> bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
@@ -145,34 +291,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             });
 
-            RadioGroup radioGroupDistance = headerView.findViewById(R.id.radioGroup1);
-            radioGroupDistance.check(R.id.radioBtnDAny);
-
-            RadioGroup radioGroupInstitute = headerView.findViewById(R.id.radioGroup2);
-            radioGroupInstitute.check(R.id.radioBtnIAny);
-
             callBackInterface = new CallBackInterface() {
                 @Override
                 public void startTheExecutionNow() {
-
-                    recyclerCollegeCard.setAdapter(collegeCardAdapter);
-                    SearchWrapper searchWrapper = new SearchWrapper();
                     if (userLocation != null) {
-                        searchWrapper.SearchColleges(null,
-                                new RecycleViewUpdater() {
-                                    @Override
-                                    public void updateRecycleView(Object object) {
-                                        SearchResponse response = (SearchResponse) object;
-                                        Log.d("SearchWrapperTEST", "DATA : " + response);
-                                        collegeCardAdapter.add(new CollegeCard(response));
-                                        showCollegeLocation(response.getName(), (double) response.getLocation().getLongitude(), (double) response.getLocation().getLatitude());
-                                    }
-                                }
-                        );
+                        new SearchAsync().execute();
                     }
-
                     Log.d("LOCATION", "LOC 1 : " + userLocation);
-
                 }
             };
 
@@ -200,6 +325,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
+        }
+    }
+
+    class SearchAsync extends AsyncTask<com.collegelocator.collegelocatorapplication.services.Location, Void, Void> {
+        @Override
+        protected Void doInBackground(com.collegelocator.collegelocatorapplication.services.Location... locations) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (locations.length != 0) {
+                        searchWrapper.setLocation(locations[0]);
+                    } else {
+                        searchWrapper.setLocation(null);
+                    }
+                    collegeCardAdapter.clear();
+                    //SearchWrapper searchWrapper = new SearchWrapper();
+                    searchWrapper.SearchColleges(
+                            new RecycleViewUpdater() {
+                                @Override
+                                public void updateRecycleView(Object object) {
+                                    SearchResponse response = (SearchResponse) object;
+                                    Log.d("SearchWrapperTEST", "DATA : " + response);
+                                    collegeCardAdapter.add(new CollegeCard(response));
+                                    showCollegeLocation(response.getName(), (double) response.getLocation().getLongitude(), (double) response.getLocation().getLatitude());
+                                }
+                            }
+                    );
+                }
+            });
+            return (Void)null;
         }
     }
 
@@ -357,7 +512,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
 }
 
 class CollegeCard extends Item<ViewHolder> {

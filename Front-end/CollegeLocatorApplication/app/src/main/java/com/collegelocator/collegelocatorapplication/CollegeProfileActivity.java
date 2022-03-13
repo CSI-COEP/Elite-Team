@@ -45,15 +45,20 @@ public class CollegeProfileActivity extends AppCompatActivity {
         txtDeemed = (TextView) findViewById(R.id.txtDeemed);
         clgImage = (ImageView) findViewById(R.id.imgClgImage);
 
-        Button btnVR = (Button) findViewById(R.id.btnVR);
-        //Toolbar clgToolBar = (Toolbar) findViewById(R.id.clgToolBar);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
 
         GroupAdapter<ViewHolder> courses = new GroupAdapter<ViewHolder>();
         RecyclerView recyclerCourses = findViewById(R.id.recyclerCourses);
         recyclerCourses.setAdapter(courses);
 
-        Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        Button btnVR = (Button) findViewById(R.id.btnVR);
+        //Toolbar clgToolBar = (Toolbar) findViewById(R.id.clgToolBar);
 
         DetailsWrapper detailsWrapper = new DetailsWrapper();
         detailsWrapper.GetDetails(id, new RecycleViewUpdater() {

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.collegelocator.collegelocatorapplication.services.CollegeLocatorServiceGrpc;
 import com.collegelocator.collegelocatorapplication.services.DetailsRequest;
 import com.collegelocator.collegelocatorapplication.services.DetailsResponse;
-import com.collegelocator.collegelocatorapplication.services.Location;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +17,7 @@ public class DetailsWrapper {
     ManagedChannel mSearchChannel;
     CollegeLocatorServiceGrpc.CollegeLocatorServiceBlockingStub blockingStub;
 
-    public static String SERVICE_ADDRESS = "2.tcp.ngrok.io:15508";
+    public static String SERVICE_ADDRESS = "8.tcp.ngrok.io:13704";
 
     public DetailsWrapper() {
         mSearchChannel = ManagedChannelBuilder.forTarget(SERVICE_ADDRESS).usePlaintext().build();
@@ -36,6 +35,9 @@ public class DetailsWrapper {
             if (response != null)
                 updater.updateRecycleView(response);
         }catch (Exception e) {}
+        finally {
+            mSearchChannel.shutdownNow();
+        }
     }
 
     public static String getServiceAddress() {

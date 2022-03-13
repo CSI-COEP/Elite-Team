@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CollegeLocatorApplication</string>
     <string name="title_activity_maps">Map</string>
-    <string-array name="planets_array">
+    <string-array name="states_array">
         <item>Maharashtra</item>
         <item>Madhya Pradesh</item>
         <item>Kerala</item>

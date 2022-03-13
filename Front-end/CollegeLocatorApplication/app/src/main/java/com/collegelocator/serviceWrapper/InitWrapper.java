@@ -18,7 +18,7 @@ public class InitWrapper {
     ManagedChannel mSearchChannel;
     CollegeLocatorServiceGrpc.CollegeLocatorServiceBlockingStub blockingStub;
 
-    public static String SERVICE_ADDRESS = "2.tcp.ngrok.io:15508";
+    public static String SERVICE_ADDRESS = "8.tcp.ngrok.io:13704";
 
     public InitWrapper() {
         mSearchChannel = ManagedChannelBuilder.forTarget(SERVICE_ADDRESS).usePlaintext().build();
@@ -31,6 +31,9 @@ public class InitWrapper {
         try {
             return blockingStub.withDeadlineAfter(5, TimeUnit.MINUTES).initApp(initRequest);
         }catch (Exception e) {}
+        finally {
+            mSearchChannel.shutdownNow();
+        }
         return null;
     }
 

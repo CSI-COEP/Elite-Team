@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="primaryTextColor">#272525</color>
+    <color name="primary">#0075ff</color>
+
+    <color name="secondary">#03a9f4</color>
+    <color name="secondaryTextColor">#272525</color>
+
+    <color name="navigationBarColor">#D0959B9E</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="colorPrimaryDark">#B7FFFFFF</color>
+
+    <color name="heading">#B7000000</color>
+
+
+
+    <color name="darkPrimary">#0075ff</color>
+    <color name="darkPrimaryTextColor">#FFFFFF</color>
+
+    <color name="darkSecondary">#03a9f4</color>
+    <color name="darkSecondaryTextColor">#FFFFFF</color>
+
+    <color name="darkNavigationBarColor">#B7393838</color>
+    <color name="darkWindowBackground">#101010</color>
+    <color name="darkColorPrimaryDark">#B7393838</color>
+
+    <color name="darkHeading">#E4FFFFFF</color>
+
+
+    <color name="transparent">#00000000</color>
+
+
+
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

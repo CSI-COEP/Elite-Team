@@ -7,4 +7,9 @@
         <item name="android:background">?android:attr/listDivider</item>
     </style>
 
+    <style name="roundedcorner">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15%</item>
+    </style>
+
 </resources>

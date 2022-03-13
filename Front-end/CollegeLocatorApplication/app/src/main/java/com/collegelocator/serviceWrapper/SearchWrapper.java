@@ -19,14 +19,14 @@ public class SearchWrapper {
     ManagedChannel mSearchChannel;
     CollegeLocatorServiceGrpc.CollegeLocatorServiceBlockingStub blockingStub;
 
+    Location location = null;
+    Distance distance = null;
+
     String searchQuery;
     boolean searchQuery_not_null = false;
 
     boolean hostel = false;
     boolean hostel_not_null = false;
-
-    String courseId = "";
-    boolean courseId_not_null = false;
 
     String state = "";
     boolean state_not_null = false;
@@ -43,14 +43,17 @@ public class SearchWrapper {
     boolean instituteType = false; // 1 = GOV and 0 = PRI
     boolean instituteType_not_null = false;
 
-    public static String SERVICE_ADDRESS = "2.tcp.ngrok.io:15508";
+    String courseType = "";
+    boolean courseType_not_null = false;
+
+    public static String SERVICE_ADDRESS = "8.tcp.ngrok.io:13704";
 
     public SearchWrapper() {
         mSearchChannel = ManagedChannelBuilder.forTarget(SERVICE_ADDRESS).usePlaintext().build();
         blockingStub = CollegeLocatorServiceGrpc.newBlockingStub(mSearchChannel);
     }
 
-    public void SearchColleges(Location location, RecycleViewUpdater updater) {
+    public void SearchColleges(RecycleViewUpdater updater) {
         SearchRequest.Builder requestBuilder = SearchRequest.newBuilder();
         if (searchQuery_not_null) {
             requestBuilder.setSearchQuery(getSearchQuery());
@@ -60,9 +63,9 @@ public class SearchWrapper {
             requestBuilder.setHostel(isHostel());
             requestBuilder.setHostelIsNull(true);
         }
-        if (courseId_not_null) {
-            requestBuilder.setCourseId(getCourseId());
-            requestBuilder.setCourseIdNull(true);
+        if (courseType_not_null) {
+            requestBuilder.setCourseType(getCourseType());
+            requestBuilder.setCourseTypeNotNull(true);
         }
         if (state_not_null) {
             requestBuilder.setState(getState());
@@ -84,9 +87,10 @@ public class SearchWrapper {
             requestBuilder.setInstituteType(isInstituteType());
             requestBuilder.setInstituteTypeNull(true);
         }
-        if (location != null) {
+        if (location != null && distance != null) {
             requestBuilder.setLocationNull(true);
             requestBuilder.setLocation(location);
+            requestBuilder.setDistance(distance);
         }
 
         SearchRequest searchRequest = requestBuilder.build();
@@ -98,7 +102,26 @@ public class SearchWrapper {
                 if (response != null)
                     updater.updateRecycleView(response);
             }
-        }catch (Exception e) {}
+        } catch (Exception e) {
+        }
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public SearchWrapper setLocation(Location location) {
+        this.location = location;
+        return this;
+    }
+
+    public Distance getDistance() {
+        return distance;
+    }
+
+    public SearchWrapper setDistance(Distance distance) {
+        this.distance = distance;
+        return this;
     }
 
     public String getSearchQuery() {
@@ -121,13 +144,13 @@ public class SearchWrapper {
         return this;
     }
 
-    public String getCourseId() {
-        return courseId;
+    public String getCourseType() {
+        return courseType;
     }
 
-    public SearchWrapper setCourseId(String courseId) {
-        this.courseId = courseId;
-        this.courseId_not_null = true;
+    public SearchWrapper setCourseType(String courseType, boolean notNull) {
+        this.courseType = courseType;
+        this.courseType_not_null = notNull;
         return this;
     }
 
@@ -175,9 +198,9 @@ public class SearchWrapper {
         return instituteType;
     }
 
-    public SearchWrapper setInstituteType(boolean instituteType) {
+    public SearchWrapper setInstituteType(boolean instituteType, boolean notNull) {
         this.instituteType = instituteType;
-        this.instituteType_not_null = true;
+        this.instituteType_not_null = notNull;
         return this;
     }
 

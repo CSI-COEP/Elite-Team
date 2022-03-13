@@ -17,9 +17,6 @@ message SearchRequest {
   bool hostel = 29;
   bool hostel_is_null = 30;//If specified then true
 
-  string courseId = 31;
-  bool courseId_null = 32;//If specified then true
-
   string state = 33;
   bool state_null = 34;//If specified then true
 
@@ -36,7 +33,7 @@ message SearchRequest {
   bool instituteType_null = 42;//If specified then true
 
   string courseType = 48;
-  bool courseType_null = 49;//If specified then true
+  bool courseType_not_null = 49;//If specified then true
 
 }
 

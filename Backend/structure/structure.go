@@ -12,8 +12,8 @@ type Location struct {
 }
 
 type RangeData struct {
-	MINFees float32 `json:"min_fees" db:"min_fees"`
-	MAXFees float32 `json:"max_fees" db:"max_fees"`
+	MINFees   float32 `json:"min_fees" db:"min_fees"`
+	MAXFees   float32 `json:"max_fees" db:"max_fees"`
 	MINCutoff float32 `json:"min_cutoff" db:"min_cutoff"`
 	MAXCutoff float32 `json:"max_cutoff" db:"max_cutoff"`
 }

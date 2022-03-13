@@ -24,8 +24,8 @@ func (dataServer *DataServer) InitApp(ctx context.Context, request *pb.InitReque
 		return nil, err
 	}
 	return &pb.InitResponse{
-		MaxRangeFees: rangeData.MAXFees,
-		MinRangeFees: rangeData.MINFees,
+		MaxRangeFees:   rangeData.MAXFees,
+		MinRangeFees:   rangeData.MINFees,
 		MaxRangeCutoff: rangeData.MAXCutoff,
 		MinRangeCutoff: rangeData.MINCutoff,
 	}, nil
